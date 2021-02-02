@@ -4,19 +4,39 @@
     <form [formGroup]="formPlayer" (ngSubmit)="onSubmit()">
         <div class="mb-3">
           <label for="nickname" class="form-label">Nickname</label>
-          <input type="text" class="form-control" id="nickname" formControlName="nickname" required>
+          <input type="text" 
+                class="form-control" 
+                id="nickname" 
+                formControlName="nickname" 
+                [(ngModel)]="player.nickname"
+                required>
+        </div>
+        <div class="alert alert-danger" 
+             role="alert">
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" formControlName="email" required>
+          <input type="email" 
+                 class="form-control" 
+                 id="email" 
+                 formControlName="email" 
+                 [(ngModel)]="player.email"
+                 required>
         </div>
         <div class="mb-3">
           <label for="age" class="form-label">Age</label>
-          <input type="number" class="form-control" id="age" formControlName="age">
+          <input type="number" 
+                 class="form-control" 
+                 id="age" 
+                 formControlName="age"
+                 [(ngModel)]="player.age">
         </div>
         <div class="mb-3">
-          <label for="age" class="form-label">Sexo</label>
-          <select class="form-select">
+          <label for="sex" class="form-label">Sexo</label>
+          <select class="form-select" 
+                  formControlName="sex" 
+                  id="sex"
+                  [(ngModel)]="player.sex">
             <option selected>Selecciona...</option>
             <option value="male">Hombre</option>
             <option value="female">Mujer</option>

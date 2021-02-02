@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl,FormBuilder, Validators } from '@angular/forms';
+import { PlayerModel } from '../../models/player.model';
+import { PlayersService } from '../../services/players.service';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +12,26 @@ import { FormGroup,FormControl,FormBuilder, Validators } from '@angular/forms';
 export class HomeComponent implements OnInit {
 
   formPlayer:FormGroup;
+  player:PlayerModel;
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder,private playersService:PlayersService) { }
 
   ngOnInit(): void {
+    this.player = new PlayerModel();
+
     this.formPlayer = this.fb.group({
       nickname : ['',Validators.required],
       email : ['',Validators.email],
       age : [''],
+      sex : ['']
     });
   }
 
   onSubmit() {
-    console.log(this.formPlayer.value);
+    this.playersService.register(this.player)
+    .subscribe( response => {
+      console.log(response);
+    }, (err) => { console.log(err)} )
   }
 
 }
