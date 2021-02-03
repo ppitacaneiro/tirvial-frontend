@@ -13,25 +13,30 @@ export class HomeComponent implements OnInit {
 
   formPlayer:FormGroup;
   player:PlayerModel;
+  formSubmitted: boolean;
 
   constructor(private fb:FormBuilder,private playersService:PlayersService) { }
 
   ngOnInit(): void {
+    this.formSubmitted = false;
     this.player = new PlayerModel();
 
     this.formPlayer = this.fb.group({
       nickname : ['',Validators.required],
-      email : ['',Validators.email],
-      age : [''],
-      sex : ['']
+      email : ['',[Validators.required,Validators.email]],
+      age : ['',Validators.required],
+      sex : ['',Validators.required]
     });
   }
 
   onSubmit() {
-    this.playersService.register(this.player)
-    .subscribe( response => {
-      console.log(response);
-    }, (err) => { console.log(err)} )
+    this.formSubmitted = true;
+    if (this.formPlayer.valid) {
+      this.playersService.register(this.player)
+      .subscribe( response => {
+        console.log(response);
+      }, (err) => { console.log(err)} )
+    }
   }
-
+  
 }

@@ -12,7 +12,9 @@
                 required>
         </div>
         <div class="alert alert-danger" 
-             role="alert">
+             role="alert"
+             *ngIf="formSubmitted && formPlayer.get('nickname').hasError('required')">
+             Debes indicar un Nickname
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
@@ -23,6 +25,16 @@
                  [(ngModel)]="player.email"
                  required>
         </div>
+        <div class="alert alert-danger"
+              roler="alert"
+              *ngIf="formSubmitted && formPlayer.get('email').hasError('required')">
+              Debes indicar un e-mail
+        </div>
+        <div class="alert alert-danger"
+              roler="alert"
+              *ngIf="formSubmitted && formPlayer.get('email').hasError('email')">
+              El email indicado debe ser válido
+        </div>
         <div class="mb-3">
           <label for="age" class="form-label">Age</label>
           <input type="number" 
@@ -31,16 +43,25 @@
                  formControlName="age"
                  [(ngModel)]="player.age">
         </div>
+        <div class="alert alert-danger"
+              roler="alert"
+              *ngIf="formSubmitted && formPlayer.get('age').hasError('required')">
+              Debe indicar la edad
+        </div>
         <div class="mb-3">
           <label for="sex" class="form-label">Sexo</label>
           <select class="form-select" 
                   formControlName="sex" 
                   id="sex"
                   [(ngModel)]="player.sex">
-            <option selected>Selecciona...</option>
             <option value="male">Hombre</option>
             <option value="female">Mujer</option>
           </select>
+        </div>
+        <div class="alert alert-danger"
+              roler="alert"
+              *ngIf="formSubmitted && formPlayer.get('sex').hasError('required')">
+              Debe indicar su género
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
       </form>
