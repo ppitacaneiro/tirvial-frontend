@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup,FormControl,FormBuilder, Validators } from '@angular/forms';
 import { PlayerModel } from '../../models/player.model';
 import { PlayersService } from '../../services/players.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,11 @@ export class HomeComponent implements OnInit {
   player:PlayerModel;
   formSubmitted: boolean;
 
-  constructor(private fb:FormBuilder,private playersService:PlayersService) { }
+  constructor(
+    private fb:FormBuilder,
+    private playersService:PlayersService,
+    private router:Router
+  ) { }
 
   ngOnInit(): void {
     this.formSubmitted = false;
@@ -33,10 +38,10 @@ export class HomeComponent implements OnInit {
     this.formSubmitted = true;
     if (this.formPlayer.valid) {
       this.playersService.register(this.player)
-      .subscribe( response => {
-        console.log(response);
-      }, (err) => { console.log(err)} )
+        .subscribe( response => {
+          this.router.navigate(['/categories']);        
+          console.log(response);
+        }, (err) => { console.log(err)} )
     }
   }
-  
 }

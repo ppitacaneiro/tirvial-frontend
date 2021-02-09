@@ -1,0 +1,9 @@
+{
+    "/api" : {
+        "target" : "http://trivial0.test:8888/",
+        "secure" : false,
+        "changeOrigin": "true",
+        "logLevel": "debug",
+        "pathRewrite": {"^/": ""}
+    }
+}
