@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Answer } from '../models/answer.models';
+import { Question } from '../models/questions.model';
+import { map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,13 @@ export class QuestionsService {
 
   constructor(private http:HttpClient) { }
 
-  getQuestionsAndAnswers(idCategory):Observable<Answer[]> {
-    return this.http.get<Answer[]>(this.url + idCategory);
+  getQuestionsAndAnswers(idCategory):Observable<Question[]> {
+    return this.http.get<Question[]>(this.url + idCategory)
+    .pipe(
+      map((response:any) => {
+        return response;
+      })
+    );
   }
 
 }

@@ -1,1 +1,21 @@
-<p>questions works!</p>
+<form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="container">
+    <ul class="list-group" *ngFor="let question of questions">
+        <li class="list-group-item">{{question.title}}</li>
+        <ul class="list-group list-group-flush" *ngFor="let answer of question.answers">
+            <li class="list-group-item answer">
+                <span>
+                    <input type="radio"
+                    name="{{question.id}}"
+                    formControlName="{{question.id}}"
+                    value="{{answer.id}}">
+                </span>
+                {{answer.title}}
+            </li>
+        </ul>
+    </ul>
+    <div class="text-center m-10">
+        <button type="submit" class="btn btn-success">Enviar</button>
+    </div>
+</div>
+</form>
