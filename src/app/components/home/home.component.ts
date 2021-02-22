@@ -38,9 +38,10 @@ export class HomeComponent implements OnInit {
     this.formSubmitted = true;
     if (this.formPlayer.valid) {
       this.playersService.register(this.player)
-        .subscribe( response => {
+        .subscribe( (response:PlayerModel) => {
+          this.player = response;
+          this.playersService.setIdPlayer(this.player.id);
           this.router.navigate(['/categories']);        
-          console.log(response);
         }, (err) => { console.log(err)} )
     }
   }

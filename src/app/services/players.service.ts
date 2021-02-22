@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators';
 export class PlayersService {
 
   private url = 'http://trivial0.test:8888/api/players';
+  private idPlayer;
 
   constructor(private http:HttpClient) { }
 
@@ -18,5 +19,13 @@ export class PlayersService {
         return response;
       })
     );
+  }
+
+  setIdPlayer(id) {
+    this.idPlayer = id;
+  }
+
+  getIdPlayer() {
+    return this.idPlayer;
   }
 }
