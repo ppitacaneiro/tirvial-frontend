@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Question } from 'src/app/models/questions.model';
 import { QuestionsService } from '../../services/questions.service';
 import { PlayersService } from '../../services/players.service';
+import { RankingsService } from '../../services/rankings.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Ranking } from 'src/app/models/ranking.model';
 
 @Component({
   selector: 'app-questions',
@@ -23,20 +26,24 @@ export class QuestionsComponent implements OnInit {
   initialTime : any;
   endTime : any;
   totalTime: any;
+  ranking: Ranking;
 
   constructor
     (
-      private router: ActivatedRoute,
+      private activatedRoute: ActivatedRoute,
       private questionsService: QuestionsService,
-      private playerService: PlayersService
+      private playerService: PlayersService,
+      private rankingService: RankingsService,
+      private router:Router
     ) {
       this.totalCorrects = 0;
       this.totalErrors = 0;
       this.initialTime = new Date();
+      this.ranking = new Ranking();
   }
 
   ngOnInit(): void {
-    this.idCategory = this.router.snapshot.paramMap.get('id');
+    this.idCategory = this.activatedRoute.snapshot.paramMap.get('id');
     this.questionsService.getQuestionsAndAnswers(this.idCategory).subscribe
       (
         (data) => {
@@ -65,13 +72,23 @@ export class QuestionsComponent implements OnInit {
     this.totalTime = this.calculateTotalTime();
     this.score = this.calculateScore();
 
-    console.log(
-      'hits : ' + this.totalCorrects +
-      'errors : ' + this.totalErrors + 
-      'score : ' + this.score + 
-      'time : ' + this.totalTime + 
-      'player_id : ' + this.playerService.getIdPlayer() + 
-      'category_id : ' + this.idCategory
+    this.ranking.category_id = parseInt(this.idCategory);
+    this.ranking.player_id = this.playerService.getIdPlayer();
+    this.ranking.errors = this.totalErrors;
+    this.ranking.hits = this.totalCorrects;
+    this.ranking.score = this.score;
+    this.ranking.time = this.totalTime;
+    this.ranking.register_at_date = new Date().toISOString().slice(0,10);
+    this.ranking.register_at_time = new Date().toISOString().slice(12,19);
+
+    this.rankingService.register(this.ranking).subscribe
+    (
+      (response) => {
+        console.log(response);
+        this.router.navigate(['/rankings']);
+      }, (error) => {
+        console.log(error);
+      }
     );
   }
 
@@ -102,5 +119,4 @@ export class QuestionsComponent implements OnInit {
       });
     }
   }
-
 }

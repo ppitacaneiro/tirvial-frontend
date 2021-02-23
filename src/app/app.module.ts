@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { QuestionsComponent } from './components/questions/questions.component';
+import { RankingsComponent } from './components/rankings/rankings.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     CategoriesComponent,
-    QuestionsComponent
+    QuestionsComponent,
+    RankingsComponent
   ],
   imports: [
     BrowserModule,
