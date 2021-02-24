@@ -1,1 +1,30 @@
-<p>rankings works!</p>
+<div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Jugador</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Aciertos</th>
+            <th scope="col">Errores</th>
+            <th scope="col">Puntuación</th>
+            <th scope="col">Tiempo (segs.) </th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ranking of rankings;let i = index">
+            <th scope="row">{{ i }}</th>
+            <td>{{ ranking.player_id }}</td>
+            <td>{{ ranking.category_id }}</td>
+            <td>{{ ranking.hits }}</td>
+            <td>{{ ranking.errors }}</td>
+            <td>{{ ranking.score }}</td>
+            <td>{{ ranking.time }}</td>
+            <td>{{ ranking.register_at_date }}</td>
+            <td>{{ ranking.register_at_time }}</td>
+          </tr>
+        </tbody>
+      </table>
+</div>

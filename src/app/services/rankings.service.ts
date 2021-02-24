@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient }  from '@angular/common/http';
 import { Ranking } from '../models/ranking.model';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class RankingsService {
         return response;
       })
     );
+  }
+
+  getRankings():Observable<Ranking[]> {
+    return this.http.get<Ranking[]>(this.url);
   }
 
 }
